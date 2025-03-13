@@ -1,0 +1,18 @@
+# Database Design
+
+## Schema
+The database consists of 4 main tables:
+1. PhoneModel: Stores phone model details (e.g., iPhone 12, Galaxy S20) and associated costs.  
+2. Phone: Tracks individual phones using IMEI numbers.  
+3. Customer: Stores customer information  
+4. rentalContract: Manages phone rentals, dates, and costs.     
+
+## Relationships
+1. Each phone belongs to a phone model.  
+2. Each rental contract is linked to a customer and phone.  
+3. Rental records are updated automatically when a phone is returned.  
+
+## Constraints for Data Integrity
+1. Foreign Keys: Prevent invalid references between tables.  
+2. Triggers: Ensure rental cost is calculated automatically and correctly.  
+3. IMEI Validation: Ensures only valid phone IMEIs are stored.  

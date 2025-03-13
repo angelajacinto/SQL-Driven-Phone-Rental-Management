@@ -1,0 +1,22 @@
+# Project Overview
+
+## Purpose
+This project focuses on improving a phone rental system database by addressing data inconsistencies,  enhancing query performance, and ensuring better reporting. The company previously faced issues with data duplication, missing rental records, and difficulty retrieving insights.
+
+## Old System
+1. No proper relationships between tables such as missing foreign key constraints.  
+
+2. Duplicate or missing records in the rental history.  
+
+3. Rental costs had to be manually updated, leading to human errors.  
+
+4. Difficulties tracking overdue rentals and revenue trends.  
+
+## Implemented Solutions
+1. Database Schema Redesign – Introduced better table relationships using foreign keys.  
+
+2. Triggers for automation – Rental costs are now automatically calculated.  
+
+3. New SQL Views – Easy reporting for rental history, top customers, and monthly revenue.  
+
+4. Data Integrity Rules – Prevent duplicate rentals and ensure phones cannot be rented twice before return.  

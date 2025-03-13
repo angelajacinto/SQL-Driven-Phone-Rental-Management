@@ -1,0 +1,38 @@
+1. Get Active Rentals  
+- Shows phones that are currently rented.  
+
+```sql
+SELECT c.customerName, p.IMEI, pm.modelName, r.dateOut
+FROM rentalContract r
+JOIN Customer c ON r.customerId = c.customerId
+JOIN Phone p ON r.IMEI = p.IMEI
+JOIN PhoneModel pm ON p.modelNumber = pm.modelNumber
+WHERE r.dateBack IS NULL;
+```
+
+2. Find Overdue Rentals  
+- Lists rentals that haven’t been returned on time. 
+
+```sql
+SELECT c.customerName, p.IMEI, pm.modelName, r.dateOut,
+(julianday('now') - julianday(r.dateOut)) AS daysElapsed
+FROM rentalContract r
+JOIN Customer c ON r.customerId = c.customerId
+JOIN Phone p ON r.IMEI = p.IMEI
+JOIN PhoneModel pm ON p.modelNumber = pm.modelNumber
+WHERE r.dateBack IS NULL AND (julianday('now') - julianday(r.dateOut)) > 30;
+```
+
+3. Extract a Monthly Revenue Report
+Calculates the total revenue per month
+
+```sql
+SELECT strftime('%Y-%m', r.dateOut) AS month,
+SUM(pm.baseCost + (julianday(r.dateBack) - julianday(r.dateOut)) * pm.dailyCost) AS revenue
+FROM rentalContract r
+LEFT JOIN Phone p ON r.IMEI = p.IMEI
+LEFT JOIN PhoneModel pm ON p.modelNumber = pm.modelNumber
+WHERE r.dateBack IS NOT NULL
+GROUP BY month
+ORDER BY month DESC;
+```
